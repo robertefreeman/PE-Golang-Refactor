@@ -1,5 +1,5 @@
 /*
-Project Euler Problem #4 - Go Refactor
+Project Euler Problem #5 - Go Refactor
 
 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
 
@@ -10,72 +10,69 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	//"math/big"
 	"time"
 )
 
 func main() {
+
+	var sol1, sol2 int
+
 	// Initilize benchmark timer
 	start := time.Now()
 
-	var sol int
+	//interate over solution x times
+	for i := 0; i < 1; i++ {
+		// Call finder function
+		sol1 = findSmall1()
+	}
+	// Print first solution
+	fmt.Printf("The smallest positive number evenly divisible by 1-20 is: %v\n", sol1)
+
+	// Stop timer and print outcome of first solution
+	elapsed := time.Since(start)
+	fmt.Printf("Solution 5 option 1 took %s\n", elapsed)
+
+	// Initilize benchmark timer for second option
+	start = time.Now()
 
 	//interate over solution x times
-	for i := 0; i < 10000; i++ {
-		//Call large Palindrome finder function
-		sol = findLarge()
+	for i := 0; i < 1; i++ {
+		// Call second finder function
+		sol2 = findSmall2()
 	}
-	// Print solution
-	fmt.Printf("The largest palindrome made from the product of two 3-digit numbers is: %v\n", sol)
+	// Print second solution
+	fmt.Printf("The smallest positive number evenly divisible by 1-20 is: %v\n", sol2)
 
-	// Stop timer and print outcome
-	elapsed := time.Since(start)
-	fmt.Printf("Solution 25 took %s", elapsed)
+	// Stop timer and print outcome of second solution
+	elapsed = time.Since(start)
+	fmt.Printf("Solution 5 option 2 took %s", elapsed)
 }
 
-/*
-func primeFactor(val int) int {
-	solution := 0
-	f := 3
-	// Loop for odd numbers as factors
-	for val != 1 {
-		for val % f ==0 {
-			solution = f
-			val = val/f
-		}
-		f += 2
-	}
-	return solution
-}
-*/
-
-func isPal(x int) bool {
-	str := strconv.Itoa(x)
-	var reverse string
-	for i := len(str) - 1; i >= 0; i-- {
-		reverse += string(str[i])
-	}
-	if str == reverse {
-		return true
-	}
-	return false
-}
-
-func findLarge() int {
-	larPal := 1
-	x:= 999
-	y:=999
-	for x > 99 {
-		for y >= x {
-			if isPal(x*y) {
-				if (x * y)>larPal {
-					larPal = x*y
-				}
+func findSmall1() int {
+	poss := []int{11,12,13,14,15,16,17,18,19,20}
+	smallNum := 2521
+	for {
+		for _, x := range poss {
+			if smallNum % x != 0 {
+				break
 			}
-			y -= 1
+			if x == 20 {
+				return smallNum
+			}
 		}
-		x -= 1
+		smallNum++
 	}
-	return larPal
 }
+
+func findSmall2() int {
+	x := 2521
+
+	for {
+		if x%11==0 && x%12==0 && x%13==0 && x%14==0 && x%15==0 && x%16==0 && x%17==0 && x%18==0 && x%19==0 && x%20==0 {
+			return x
+		}
+		x++
+	}
+}
+
+
